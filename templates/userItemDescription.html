@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+
+<h1 class="display-3">{{items.name}}</h1>
+<p class="lead">{{items.description}}</p>
+<hr class="my-4">
+<p class="lead">
+    <a class="btn btn-outline-primary" href="{{url_for('editItem', category_id=items.categories_id, itemId=items.id)}}"
+        role="button">Edit</a> |
+    <a class="btn btn-outline-danger" href="{{url_for('deleteItem', category_id=items.categories_id, itemId=items.id)}}"
+        role="button">Delete</a>
+</p>
+
+{% endblock %}

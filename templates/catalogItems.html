@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% block content %}
+
+<!-- Flash Message -->
+
+<div class="alert alert-dismissible alert-success text-center">
+    <div class='flash'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <strong> {{ message }} </strong>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- Categories Portion -->
+
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">CATEGORIES</div>
+            <div class="card-body">
+                <p class="card-text">
+                    {% for category in categories %}
+                    <a href="{{url_for('catalogItems', category_id=category.id)}}" class="text-white">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>{{category.name}}</h3>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Items Portion -->
+
+    <div class="col-md-8">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
+            <div class="card-header">{{category.name}} Items ({{rows}} items)</div>
+            <div class="card-body">
+                <p class="card-text">
+                    {% for item in items %}
+                    <a href="{{url_for('itemDescription', category_id=item.categories_id, itemId=item.id)}}" class="text-white">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>{{item.name}}</h3>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

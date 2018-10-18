@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}
+
+<!-- Heading -->
+
+<div class="row banner menu">
+    <div class="col-md-11 col-md-offset-1 padding-none">
+        <h1>Delete Item</h1>
+    </div>
+</div>
+
+<!-- New Item Form -->
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <form action="{{url_for('deleteItem', category_id=item.categories_id, itemId=item.id)}}" method="post">
+            <div class="form-group">
+                <p class="text-info">Are you sure you want to delete '{{item.name}}'?</p>
+
+                <button type="submit" class="btn btn-outline-danger mt-3" id="submit" type="submit">
+                    <span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
