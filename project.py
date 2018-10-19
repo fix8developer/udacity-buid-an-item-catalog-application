@@ -16,6 +16,7 @@ import json
 import random
 import string
 import requests
+from functools import wraps
 
 # -------------------------------------------------------------------------
 # Flask framework initialization
@@ -262,15 +263,31 @@ def showCatalog():
             'usercatalog.html', categories=categories, items=items
         )
 
+
+# -------------------------------------------------------------------------
+# User Login check
+# -------------------------------------------------------------------------
+
+
+def login_required(f):
+    #  @wraps, which will preserve information about the original function
+    @wraps(f)
+    # This will accept an arbitrary number of positional and keyword arguments
+    def x(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect('/login')
+        return f(*args, **kwargs)
+    return x
+
+
 # -------------------------------------------------------------------------
 # Create a new item
 # -------------------------------------------------------------------------
 
 
 @app.route('/catalog/item/new/', methods=['GET', 'POST'])
+@login_required
 def newItem():
-    if 'username' not in login_session:
-        return redirect('/login')
     categories = session.query(Categories).all()
     if request.method == 'POST':
         newItem = Items(
@@ -325,9 +342,8 @@ def itemDescription(category_id, itemId):
 @app.route(
     '/catalog/<int:category_id>/<int:itemId>/edit', methods=['GET', 'POST']
 )
+@login_required
 def editItem(category_id, itemId):
-    if 'username' not in login_session:
-        return redirect('/login')
     editedItem = session.query(Items).filter_by(id=itemId).one()
     category = session.query(Categories).filter_by(id=category_id).one()
     categories = session.query(Categories).all()
