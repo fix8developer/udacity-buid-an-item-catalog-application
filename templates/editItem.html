@@ -16,16 +16,16 @@
 		<form action="{{url_for('editItem', category_id=item.categories_id, itemId=item.id)}}" method="post">
 			<div class="form-group">
 				<label for="name" class="badge badge-secondary">Name:</label>
-				<input type="text" maxlength="50" class="form-control" name="name" value="{{item.name}}">
+				<input type="text" maxlength="50" class="form-control" name="name" value="{{item.name}}" required>
 
 				<label for="description" class="badge badge-secondary">Description:</label>
-				<textarea class="form-control" maxlength="250" rows="3" name="description">{{item.description}}</textarea>
+				<textarea class="form-control" maxlength="250" rows="3" name="description" required>{{item.description}}</textarea>
 
 				<label for="categories_id" class="badge badge-secondary">Categories:</label>
 				{% for category in categories %}
 				<div class="radio">
 					<label>
-						<input type="radio" name="categories_id" value="{{category.id}}">{{category.name}}
+						<input type="radio" name="categories_id" value="{{category.id}}" required>{{category.name}}
 					</label>
 				</div>
 				{% endfor %}
