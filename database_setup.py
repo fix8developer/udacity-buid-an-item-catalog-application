@@ -52,7 +52,7 @@ class Items(Base):
 
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
-    description = Column(String(250))
+    description = Column(String(1000))
     categories_id = Column(Integer, ForeignKey('categories.id'))
     categories = relationship(Categories)
     user_id = Column(Integer, ForeignKey('user.id'))
