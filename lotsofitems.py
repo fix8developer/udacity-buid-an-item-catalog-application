@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Categories, Base, Items, User
 
-#engine = create_engine('sqlite:///catalog.db')
+# engine = create_engine('sqlite:///catalog.db')
 engine = create_engine(
     'postgresql+psycopg2://catalog:catalog@localhost/catalog')
 # Bind the engine to the metadata of the Base class so that the
@@ -173,4 +173,4 @@ session.add(itme7)
 session.commit()
 
 
-print "added menu items!"
+print("added menu items!")
