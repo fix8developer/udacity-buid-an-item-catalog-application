@@ -33,9 +33,9 @@ APPLICATION_NAME = "Catalog App"
 # Connect to Database and create database session
 # -------------------------------------------------------------------------
 
-#engine = create_engine('sqlite:///catalog.db')
+# engine = create_engine('sqlite:///catalog.db')
 engine = create_engine(
-        'postgresql+psycopg2://catalog:catalog@localhost/catalog')
+    'postgresql+psycopg2://catalog:catalog@localhost/catalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -78,7 +78,8 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('/var/www/catalog/client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets(
+            '/var/www/catalog/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -111,7 +112,7 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps("Token's client ID does not match app's."), 401)
-        print "Token's client ID does not match app's."
+        print("Token's client ID does not match app's.")
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -157,7 +158,7 @@ def gconnect():
         border-radius:150px;-webkit-border-radius: 150px;
         -moz-border-radius: 150px;">'"""
     flash("You are now logged in as '%s'" % login_session['username'])
-    print "done!"
+    print("done!")
     return output
 
 
@@ -350,8 +351,8 @@ def editItem(category_id, itemId):
     editedItem = session.query(Items).filter_by(id=itemId).one()
     category = session.query(Categories).filter_by(id=category_id).one()
     categories = session.query(Categories).all()
-    print login_session['user_id']
-    print category.user_id
+    print(login_session['user_id'])
+    print(category.user_id)
 
     if login_session['user_id'] != editedItem.user_id:
         flash("""
