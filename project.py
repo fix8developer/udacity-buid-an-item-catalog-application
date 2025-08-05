@@ -25,9 +25,18 @@ from functools import wraps
 app = Flask(__name__)
 app.secret_key = 'super_secret_key'
 
+# -------------------------------------------------------------------------
+# Load client secrets from JSON file for VM
+# -------------------------------------------------------------------------
 CLIENT_ID = json.loads(
-    open('/var/www/catalog/client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Catalog App"
+    open('client_secrets.json', 'r').read())['web']['client_id']
+
+# -------------------------------------------------------------------------
+# Load client secrets from JSON file for Linux Server
+# -------------------------------------------------------------------------
+# CLIENT_ID = json.loads(
+#     open('/var/www/catalog/client_secrets.json', 'r').read())['web']['client_id']
+# APPLICATION_NAME = "Catalog App"
 
 # -------------------------------------------------------------------------
 # Connect to Database and create database session
